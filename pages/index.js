@@ -26,7 +26,7 @@ content="Prakruthi Farmstay in Sakleshpur offers peaceful coffee plantation stay
 
 <meta
 name="keywords"
-content="Prakruthi Farmstay, Sakleshpur Farmstay, Coffee plantation stay Sakleshpur, Stay in Sakleshpur"
+content="Prakruthi Farmstay, Sakleshpur Farmstay, Coffee plantation stay Sakleshpur, Stay in Sakleshpur,Homestay in Sakleshpur, Nature stay Sakleshpur, Plantation stay Sakleshpur, Farmstay with plantation view, Private rooms Sakleshpur, Shared rooms Sakleshpur, Peaceful stay Sakleshpur"
 />
 
 <link rel="icon" href="/favicon.ico" />
