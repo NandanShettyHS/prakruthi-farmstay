@@ -42,7 +42,7 @@ className="bg-blue-500 text-white w-12 h-12 flex items-center justify-center rou
 {/* WhatsApp */}
 
 <a
-href="https://wa.me/919980307931"
+href="https://wa.me/919980307931?text=Hi%2C%20I%E2%80%99m%20planning%20a%20trip%20to%20Sakleshpur%20and%20came%20across%20Prakruthi%20Farmstay.%0A%0ACheck-in%20Date%3A%0ACheck-out%20Date%3A%0ANumber%20of%20Guests%3A%0A%0ACould%20you%20please%20share%20availability%20and%20price%20details%3F"
 target="_blank"
 className="bg-green-500 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-lg hover:bg-green-600 transition"
 >

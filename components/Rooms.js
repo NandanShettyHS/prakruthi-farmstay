@@ -1,6 +1,45 @@
 "use client"
 
+import { useState } from "react"
+import { Swiper, SwiperSlide } from "swiper/react"
+import { Navigation, Pagination } from "swiper/modules"
+
+import "swiper/css"
+import "swiper/css/navigation"
+import "swiper/css/pagination"
+
 export default function Rooms(){
+
+const [galleryImages,setGalleryImages] = useState(null)
+const [sliderIndex,setSliderIndex] = useState(null)
+
+/* ROOM IMAGES */
+
+const room1Images = [
+"/images/room1.jpg",
+"/images/room1(2).jpg",
+"/images/room1_window.jpg",
+"/images/room1_washroom.jpg"
+]
+
+const room2Images = [
+"/images/room2.jpg",
+"/images/room2(2).jpg",
+"/images/room2_window.jpg",
+"/images/room2_washroom.jpg"
+]
+
+/* WHATSAPP MESSAGE */
+
+function openWhatsApp(room){
+
+const text = `Hello, I would like to enquire about the ${room} at Prakruthi Farmstay.`
+
+const url = `https://wa.me/919980307931?text=${encodeURIComponent(text)}`
+
+window.open(url,"_blank")
+
+}
 
 return(
 
@@ -12,17 +51,17 @@ Our Rooms
 
 <div className="max-w-6xl mx-auto grid grid-cols-2 gap-4 md:gap-10 px-4 md:px-6">
 
-
 {/* ROOM 1 */}
 
-<div className="bg-white rounded-xl shadow-lg overflow-hidden hover:-translate-y-2 hover:shadow-2xl transition flex flex-col">
+<div
+className="bg-white rounded-xl shadow-lg overflow-hidden hover:-translate-y-2 hover:shadow-2xl transition flex flex-col cursor-pointer"
+onClick={()=>setGalleryImages(room1Images)}
+>
 
-<div className="overflow-hidden">
 <img
 src="/images/room1.jpg"
-className="w-full h-40 md:h-64 object-cover transition-transform duration-500 hover:scale-110"
+className="w-full h-40 md:h-64 object-cover"
 />
-</div>
 
 <div className="p-3 md:p-6 flex flex-col justify-between flex-grow">
 
@@ -37,9 +76,6 @@ Comfortable room ideal for couples or two guests.
 Enjoy peaceful nature views surrounded by coffee plantations.
 </p>
 
-
-{/* ROOM FEATURES */}
-
 <div className="flex flex-col gap-1 text-xs md:text-sm text-gray-700 mb-4">
 
 <span>👥 2 Guests</span>
@@ -50,22 +86,22 @@ Enjoy peaceful nature views surrounded by coffee plantations.
 
 </div>
 
-
-{/* BUTTONS */}
-
 <div className="flex gap-2">
 
-<a
-href="https://wa.me/919980307931"
-target="_blank"
-className="flex-1 text-center bg-green-600 text-white text-xs md:text-base px-3 py-2 rounded-lg hover:bg-green-700 transition"
+<button
+onClick={(e)=>{
+e.stopPropagation()
+openWhatsApp("2 Guest Private Room")
+}}
+className="flex-1 bg-green-600 text-white text-xs md:text-base py-2 rounded-lg hover:bg-green-700"
 >
 Book Now
-</a>
+</button>
 
 <a
 href="tel:9980307931"
-className="flex-1 text-center border border-green-600 text-green-600 text-xs md:text-base px-3 py-2 rounded-lg hover:bg-green-50 transition"
+onClick={(e)=>e.stopPropagation()}
+className="flex-1 text-center border border-green-600 text-green-600 text-xs md:text-base py-2 rounded-lg hover:bg-green-50"
 >
 Call
 </a>
@@ -77,17 +113,17 @@ Call
 </div>
 
 
-
 {/* ROOM 2 */}
 
-<div className="bg-white rounded-xl shadow-lg overflow-hidden hover:-translate-y-2 hover:shadow-2xl transition flex flex-col">
+<div
+className="bg-white rounded-xl shadow-lg overflow-hidden hover:-translate-y-2 hover:shadow-2xl transition flex flex-col cursor-pointer"
+onClick={()=>setGalleryImages(room2Images)}
+>
 
-<div className="overflow-hidden">
 <img
 src="/images/room2.jpg"
-className="w-full h-40 md:h-64 object-cover transition-transform duration-500 hover:scale-110"
+className="w-full h-40 md:h-64 object-cover"
 />
-</div>
 
 <div className="p-3 md:p-6 flex flex-col justify-between flex-grow">
 
@@ -101,9 +137,6 @@ Shared Room
 Spacious room suitable for groups of friends or families visiting Sakleshpur.
 </p>
 
-
-{/* ROOM FEATURES */}
-
 <div className="flex flex-col gap-1 text-xs md:text-sm text-gray-700 mb-4">
 
 <span>👥 4–5 Guests</span>
@@ -114,22 +147,22 @@ Spacious room suitable for groups of friends or families visiting Sakleshpur.
 
 </div>
 
-
-{/* BUTTONS */}
-
 <div className="flex gap-2">
 
-<a
-href="https://wa.me/919980307931"
-target="_blank"
-className="flex-1 text-center bg-green-600 text-white text-xs md:text-base px-3 py-2 rounded-lg hover:bg-green-700 transition"
+<button
+onClick={(e)=>{
+e.stopPropagation()
+openWhatsApp("4–5 Guest Shared Room")
+}}
+className="flex-1 bg-green-600 text-white text-xs md:text-base py-2 rounded-lg hover:bg-green-700"
 >
 Book Now
-</a>
+</button>
 
 <a
 href="tel:9980307931"
-className="flex-1 text-center border border-green-600 text-green-600 text-xs md:text-base px-3 py-2 rounded-lg hover:bg-green-50 transition"
+onClick={(e)=>e.stopPropagation()}
+className="flex-1 text-center border border-green-600 text-green-600 text-xs md:text-base py-2 rounded-lg hover:bg-green-50"
 >
 Call
 </a>
@@ -140,8 +173,90 @@ Call
 
 </div>
 
+</div>
+
+
+{/* ROOM GALLERY GRID */}
+
+{galleryImages && sliderIndex === null && (
+
+<div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center">
+
+<div className="w-full max-w-5xl px-6">
+
+<button
+className="text-white text-xl mb-6"
+onClick={()=>setGalleryImages(null)}
+>
+Close
+</button>
+
+<div className="grid grid-cols-2 gap-6 max-w-4xl mx-auto">
+
+{galleryImages.map((img,i)=>(
+
+<img
+key={i}
+src={img}
+className="w-full h-60 md:h-72 object-cover rounded-xl cursor-pointer hover:scale-105 transition"
+onClick={()=>setSliderIndex(i)}
+/>
+
+))}
 
 </div>
+
+</div>
+
+</div>
+
+)}
+
+
+{/* FULLSCREEN SLIDER */}
+
+{galleryImages && sliderIndex !== null && (
+
+<div className="fixed inset-0 bg-black z-50 flex items-center justify-center">
+
+<button
+className="absolute top-6 right-6 text-white text-2xl"
+onClick={()=>setSliderIndex(null)}
+>
+✕
+</button>
+
+<div className="w-full max-w-5xl">
+
+<Swiper
+modules={[Navigation, Pagination]}
+navigation
+pagination={{clickable:true}}
+initialSlide={sliderIndex}
+>
+
+{galleryImages.map((img,i)=>(
+<SwiperSlide key={i}>
+
+<div className="h-[70vh] flex items-center justify-center">
+
+<img
+src={img}
+className="w-full h-full object-cover rounded-lg"
+/>
+
+</div>
+
+</SwiperSlide>
+))}
+
+</Swiper>
+
+</div>
+
+</div>
+
+)}
 
 </section>
 

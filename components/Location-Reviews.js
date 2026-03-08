@@ -79,7 +79,7 @@ Location & Guest Reviews
 
 
 <a
-href="https://www.google.com/search?q=prakruthi+farmstay+kabbinagadde+reviews"
+href="https://www.google.com/travel/hotels/entity/CiMI6cjy49fw2sAfEMvkhLvl0eviUBoNL2cvMTF2cjRfcmRtaBAB/reviews?gsas=1&ts=CAEaIAoCGgASGhIUCgcI6g8QAxgIEgcI6g8QAxgJGAEyAhAAKgQKABoA&qs=OAI&ictx=111&sa=X&utm_campaign=sharing&utm_medium=link&utm_source=htls"
 target="_blank"
 className="inline-block bg-green-600 text-white text-sm md:text-base px-4 md:px-6 py-2 md:py-3 rounded-lg hover:bg-green-700 transition"
 >

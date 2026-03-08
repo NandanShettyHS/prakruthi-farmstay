@@ -32,6 +32,10 @@ const images = [
 "Images (19).jpg",
 "Images (20).jpg",
 "Images (21).jpg",
+"Image(22).jpg",
+"Image(23).jpg",
+"Image(24).jpg",
+"Image(25).jpg",
 ]
 
 const [start,setStart] = useState(0)

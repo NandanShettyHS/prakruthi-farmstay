@@ -12,6 +12,8 @@ const images = [
 "/images/dining.jpg"
 ]
 
+const whatsappMessage = "https://wa.me/919980307931?text=Hi%2C%20I%E2%80%99m%20planning%20a%20trip%20to%20Sakleshpur%20and%20came%20across%20Prakruthi%20Farmstay.%0A%0ACheck-in%20Date%3A%0ACheck-out%20Date%3A%0ANumber%20of%20Guests%3A%0A%0ACould%20you%20please%20share%20availability%20and%20price%20details%3F"
+
 return (
 
 <div className="h-screen">
@@ -59,7 +61,7 @@ Call Now
 </a>
 
 <a
-href="https://wa.me/919980307931"
+href={whatsappMessage}
 target="_blank"
 className="bg-green-500 px-6 py-3 rounded-lg hover:bg-green-600 transition"
 >
