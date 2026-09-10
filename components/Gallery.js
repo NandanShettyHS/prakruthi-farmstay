@@ -52,6 +52,40 @@ useEffect(() => {
   return () => clearInterval(interval)
 }, [images.length])
 
+useEffect(() => {
+  const handleGalleryState = () => {
+    if (window.location.hash !== "#gallery") {
+      setShowAll(false)
+      setSelected(null)
+    }
+  }
+
+  window.addEventListener("popstate", handleGalleryState)
+  window.addEventListener("hashchange", handleGalleryState)
+
+  return () => {
+    window.removeEventListener("popstate", handleGalleryState)
+    window.removeEventListener("hashchange", handleGalleryState)
+  }
+}, [])
+
+function openGallery() {
+  if (window.location.hash !== "#gallery") {
+    window.history.pushState({ galleryOpen: true }, "", `${window.location.pathname}${window.location.search}#gallery`)
+  }
+  setShowAll(true)
+}
+
+function closeGallery() {
+  setShowAll(false)
+  setSelected(null)
+
+  const cleanUrl = `${window.location.pathname}${window.location.search}`
+  if (window.location.hash) {
+    window.history.replaceState({ galleryOpen: false }, "", cleanUrl)
+  }
+}
+
 const visibleImages = images.slice(start, start + 5)
 
 if (visibleImages.length < 5) {
@@ -99,7 +133,7 @@ onClick={()=>setSelected(img)}
 <div className="text-center mt-6">
 
 <button
-onClick={()=>setShowAll(true)}
+onClick={openGallery}
 className="border px-6 py-3 rounded-lg hover:bg-gray-100"
 >
 Show all {images.length} photos
@@ -115,13 +149,14 @@ Show all {images.length} photos
 <div className="fixed inset-0 bg-black/90 overflow-y-scroll z-50 p-6 md:p-10">
 
 <button
-className="text-white mb-6"
-onClick={()=>setShowAll(false)}
+className="absolute right-3 top-3 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-black/40 text-xl text-white shadow-lg backdrop-blur-sm transition hover:bg-black/60 sm:right-4 sm:top-4"
+onClick={closeGallery}
+aria-label="Close gallery"
 >
-Close
+×
 </button>
 
-<div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+<div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-14 sm:pt-16">
 
 {images.map((img,i)=>(
 <motion.img
@@ -148,6 +183,14 @@ onClick={()=>setSelected(img)}
 className="fixed inset-0 bg-black/90 flex items-center justify-center z-50"
 onClick={()=>setSelected(null)}
 >
+
+<button
+className="absolute right-3 top-3 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-black/40 text-xl text-white shadow-lg backdrop-blur-sm transition hover:bg-black/60 sm:right-4 sm:top-4"
+onClick={()=>setSelected(null)}
+aria-label="Close image"
+>
+×
+</button>
 
 <motion.img
 src={`/images/${selected}`}
