@@ -2,98 +2,80 @@
 
 import { useState, useEffect } from "react"
 
-export default function Navbar(){
+export default function Navbar() {
+  const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
 
-const [open,setOpen] = useState(false)
-const [scrolled,setScrolled] = useState(false)
+  useEffect(() => {
+    function handleScroll() {
+      setScrolled(window.scrollY > 80)
+    }
 
-useEffect(()=>{
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
 
-function handleScroll(){
+  return (
+    <div
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+        scrolled ? "bg-white/85 shadow-[0_10px_30px_rgba(16,24,20,0.08)] backdrop-blur-md" : "bg-transparent"
+      }`}
+    >
+      <div className="section-shell flex items-center justify-between py-4">
+        <a href="#top" className="flex items-center gap-3">
+          <div
+            className={`flex h-10 w-10 items-center justify-center rounded-full text-sm font-bold ${
+              scrolled ? "bg-[#1d4a2c] text-white" : "bg-white/15 text-white backdrop-blur-sm"
+            }`}
+          >
+            PF
+          </div>
 
-if(window.scrollY > 80){
-setScrolled(true)
-}else{
-setScrolled(false)
-}
+          <div>
+            <p className={`text-[10px] uppercase tracking-[0.22em] ${scrolled ? "text-[#5f6d62]" : "text-white/80"}`}>
+              Sakleshpur
+            </p>
+            <h1 className={`text-base font-bold md:text-xl ${scrolled ? "text-[#1d2a20]" : "text-white"}`}>
+              Prakruthi Farmstay
+            </h1>
+          </div>
+        </a>
 
-}
+        <div className={`hidden items-center gap-8 text-sm font-medium md:flex ${scrolled ? "text-[#1d2a20]" : "text-white"}`}>
+          <a href="#rooms" className="transition hover:text-[#2a6b3d]">Rooms</a>
+          <a href="#gallery" className="transition hover:text-[#2a6b3d]">Gallery</a>
+          <a href="#location" className="transition hover:text-[#2a6b3d]">Location</a>
+          <a href="#contact" className="transition hover:text-[#2a6b3d]">Contact</a>
+        </div>
 
-window.addEventListener("scroll",handleScroll)
+        <a
+          href="tel:9980307931"
+          className={`hidden rounded-full px-4 py-2 text-sm font-semibold md:inline-flex ${
+            scrolled ? "bg-[#2a6b3d] text-white" : "border border-white/40 bg-white/10 text-white backdrop-blur-sm"
+          }`}
+        >
+          Call Now
+        </a>
 
-return ()=>window.removeEventListener("scroll",handleScroll)
+        <button
+          className={`md:hidden text-2xl ${scrolled ? "text-[#1d2a20]" : "text-white"}`}
+          onClick={() => setOpen(!open)}
+          aria-label="Toggle menu"
+        >
+          ☰
+        </button>
+      </div>
 
-},[])
-
-return(
-
-<div className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-scrolled ? "bg-white shadow" : "bg-transparent"
-}`}>
-
-<div className="max-w-6xl mx-auto flex justify-between items-center px-4 py-3">
-
-{/* Logo */}
-
-<h1 className={`font-bold text-lg md:text-xl ${
-scrolled ? "text-black" : "text-white"
-}`}>
-Prakruthi Farmstay
-</h1>
-
-{/* Desktop Menu */}
-
-<div className={`hidden md:flex space-x-6 text-sm md:text-base ${
-scrolled ? "text-black" : "text-white"
-}`}>
-
-<a href="#rooms" className="hover:text-green-600">Rooms</a>
-
-<a href="#gallery" className="hover:text-green-600">Gallery</a>
-
-<a href="#location" className="hover:text-green-600">Location</a>
-
-<a href="#contact" className="hover:text-green-600">Contact</a>
-
-</div>
-
-{/* Mobile Hamburger */}
-
-<button
-className={`md:hidden text-2xl ${
-scrolled ? "text-black" : "text-white"
-}`}
-onClick={()=>setOpen(!open)}
->
-☰
-</button>
-
-</div>
-
-{/* Mobile Menu */}
-
-{open && (
-
-<div className="md:hidden bg-white shadow">
-
-<div className="flex flex-col text-center py-4 space-y-4">
-
-<a href="#rooms" onClick={()=>setOpen(false)}>Rooms</a>
-
-<a href="#gallery" onClick={()=>setOpen(false)}>Gallery</a>
-
-<a href="#location" onClick={()=>setOpen(false)}>Location</a>
-
-<a href="#contact" onClick={()=>setOpen(false)}>Contact</a>
-
-</div>
-
-</div>
-
-)}
-
-</div>
-
-)
-
+      {open && (
+        <div className="md:hidden border-t border-black/5 bg-white/95 shadow-lg backdrop-blur-md">
+          <div className="section-shell flex flex-col py-4 text-center text-base font-medium text-[#1d2a20]">
+            <a href="#rooms" onClick={() => setOpen(false)} className="py-2">Rooms</a>
+            <a href="#gallery" onClick={() => setOpen(false)} className="py-2">Gallery</a>
+            <a href="#location" onClick={() => setOpen(false)} className="py-2">Location</a>
+            <a href="#contact" onClick={() => setOpen(false)} className="py-2">Contact</a>
+          </div>
+        </div>
+      )}
+    </div>
+  )
 }
