@@ -76,6 +76,13 @@ function openGallery() {
   setShowAll(true)
 }
 
+function openSelectedImage(img) {
+  if (window.location.hash !== "#gallery") {
+    window.history.pushState({ galleryOpen: true }, "", `${window.location.pathname}${window.location.search}#gallery`)
+  }
+  setSelected(img)
+}
+
 function closeGallery() {
   setShowAll(false)
   setSelected(null)
@@ -110,7 +117,7 @@ Farmstay Gallery
 src={`/images/${visibleImages[0]}`}
 className="col-span-2 row-span-2 w-full h-80 md:h-full object-cover rounded-xl cursor-pointer"
 whileHover={{scale:1.02}}
-onClick={()=>setSelected(visibleImages[0])}
+onClick={()=>openSelectedImage(visibleImages[0])}
 />
 
 {/* SMALL IMAGES */}
@@ -121,7 +128,7 @@ key={i}
 src={`/images/${img}`}
 className="w-full h-40 md:h-full object-cover rounded-xl cursor-pointer"
 whileHover={{scale:1.05}}
-onClick={()=>setSelected(img)}
+onClick={()=>openSelectedImage(img)}
 />
 ))}
 
@@ -164,7 +171,7 @@ key={i}
 src={`/images/${img}`}
 className="w-full h-40 md:h-48 object-cover rounded-lg cursor-pointer"
 whileHover={{scale:1.05}}
-onClick={()=>setSelected(img)}
+onClick={()=>openSelectedImage(img)}
 />
 ))}
 
@@ -181,12 +188,12 @@ onClick={()=>setSelected(img)}
 
 <div
 className="fixed inset-0 bg-black/90 flex items-center justify-center z-50"
-onClick={()=>setSelected(null)}
+onClick={()=>closeGallery()}
 >
 
 <button
 className="absolute right-3 top-3 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-black/40 text-xl text-white shadow-lg backdrop-blur-sm transition hover:bg-black/60 sm:right-4 sm:top-4"
-onClick={()=>setSelected(null)}
+onClick={()=>closeGallery()}
 aria-label="Close image"
 >
 ×
