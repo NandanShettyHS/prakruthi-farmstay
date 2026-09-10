@@ -111,11 +111,16 @@ export default function Home() {
                   rel="noopener noreferrer"
                   className="soft-card block w-[62vw] min-w-[62vw] rounded-[22px] bg-white p-4 text-left transition duration-200 hover:-translate-y-1 hover:shadow-[0_18px_35px_rgba(19,26,21,0.08)] md:w-[290px] md:min-w-[290px] md:rounded-[26px] md:p-5"
                 >
-                  <div className="mb-3 flex items-center justify-between">
+                  <div className="mb-3 flex items-center justify-between gap-2">
                     <h3 className="text-[13px] font-bold text-[#1d2a20] md:text-xl">{place.title}</h3>
-                    <span className="rounded-full bg-[#edf6ee] px-2 py-1 text-[10px] font-semibold text-[#2a6b3d] md:text-[11px]">
-                      {place.distance}
-                    </span>
+                    <div className="flex items-center gap-1.5">
+                      <span className="rounded-full bg-[#edf6ee] px-2 py-1 text-[10px] font-semibold text-[#2a6b3d] md:text-[11px]">
+                        {place.distance}
+                      </span>
+                      <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#edf6ee] text-[11px] font-bold text-[#2a6b3d] md:h-7 md:w-7">
+                        ↗
+                      </span>
+                    </div>
                   </div>
 
                   <p className="text-[10.5px] leading-5 text-[#5f6d62] md:text-[14px] md:leading-6">{place.text}</p>

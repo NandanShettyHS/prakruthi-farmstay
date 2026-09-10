@@ -38,28 +38,25 @@ const images = [
 "Image(25).jpg",
 ]
 
-const [start,setStart] = useState(0)
 const [selected,setSelected] = useState(null)
 const [showAll,setShowAll] = useState(false)
+const [start,setStart] = useState(0)
 
-const visibleImages = images.slice(start,start+5)
+useEffect(() => {
+  const cycleLength = Math.max(1, images.length - 4)
 
-useEffect(()=>{
+  const interval = setInterval(() => {
+    setStart((prev) => (prev + 1) % cycleLength)
+  }, 3000)
 
-const interval = setInterval(()=>{
+  return () => clearInterval(interval)
+}, [images.length])
 
-setStart((prev)=>{
-if(prev+5 >= images.length){
-return 0
+const visibleImages = images.slice(start, start + 5)
+
+if (visibleImages.length < 5) {
+  visibleImages.push(...images.slice(0, 5 - visibleImages.length))
 }
-return prev+1
-})
-
-},4000)
-
-return ()=>clearInterval(interval)
-
-},[])
 
 return(
 

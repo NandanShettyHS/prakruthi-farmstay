@@ -31,10 +31,6 @@ export default function HeroSlider() {
 
               <div className="relative z-10 mx-auto w-full max-w-6xl px-4 text-left sm:px-6 lg:px-8">
                 <div className="max-w-xl sm:max-w-2xl">
-                  <span className="eyebrow mb-4 border-white/20 bg-white/10 text-white text-[0.62rem] backdrop-blur-sm sm:mb-5 sm:text-[0.72rem]">
-                    Coffee Estate Retreat
-                  </span>
-
                   <h1 className="mb-4 max-w-[11ch] text-[2.5rem] font-black leading-[0.92] tracking-[-0.06em] sm:mb-5 sm:max-w-none sm:text-5xl md:text-6xl lg:text-7xl">
                     Nature stays that feel like home.
                   </h1>

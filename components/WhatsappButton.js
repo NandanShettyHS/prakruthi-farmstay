@@ -6,11 +6,19 @@ export default function ContactButtons() {
   const [show, setShow] = useState(false)
 
   useEffect(() => {
+    let ticking = false
+
     function handleScroll() {
-      setShow(window.scrollY > 500)
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setShow(window.scrollY > 500)
+          ticking = false
+        })
+        ticking = true
+      }
     }
 
-    window.addEventListener("scroll", handleScroll)
+    window.addEventListener("scroll", handleScroll, { passive: true })
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 

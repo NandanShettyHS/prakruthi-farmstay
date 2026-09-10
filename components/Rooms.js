@@ -15,8 +15,12 @@ const [sliderIndex,setSliderIndex] = useState(null)
 
 useEffect(() => {
   const handlePopState = () => {
-    setGalleryImages(null)
-    setSliderIndex(null)
+    const galleryOpen = window.location.hash === "#gallery" || !!(window.history.state && window.history.state.galleryOpen)
+
+    if (!galleryOpen) {
+      setGalleryImages(null)
+      setSliderIndex(null)
+    }
   }
 
   window.addEventListener("popstate", handlePopState)
@@ -27,14 +31,25 @@ useEffect(() => {
 }, [])
 
 function openGallery(images, index = null) {
+  const targetUrl = `${window.location.pathname}${window.location.search}#gallery`
+
+  if (window.location.hash !== "#gallery") {
+    window.history.pushState({ galleryOpen: true }, "", targetUrl)
+  }
+
   setGalleryImages(images)
   setSliderIndex(index)
-  window.history.pushState({ galleryOpen: true }, "", window.location.href)
 }
 
 function closeGallery() {
   setGalleryImages(null)
   setSliderIndex(null)
+
+  if (window.location.hash === "#gallery") {
+    window.history.back()
+    return
+  }
+
   if (window.history.state && window.history.state.galleryOpen) {
     window.history.back()
   }
@@ -86,11 +101,15 @@ return(
         className="group flex cursor-pointer flex-col overflow-hidden rounded-[18px] border border-[#e2dfd7] bg-white shadow-[0_18px_42px_rgba(19,26,21,0.08)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_25px_60px_rgba(19,26,21,0.12)] sm:rounded-[22px]"
         onClick={() => openGallery(room1Images)}
       >
-        <div className="overflow-hidden">
+        <div className="relative overflow-hidden">
           <img
             src="/images/room1.jpg"
             className="h-32 w-full object-cover transition duration-500 group-hover:scale-105 sm:h-52 md:h-72"
           />
+          <div className="absolute bottom-2 right-2 flex items-center gap-1 rounded-full border border-white/50 bg-black/45 px-2 py-1 text-[9px] font-medium text-white backdrop-blur-sm sm:bottom-3 sm:right-3 sm:px-2.5 sm:text-[10px]">
+            <span>📷</span>
+            <span>{room1Images.length}</span>
+          </div>
         </div>
 
         <div className="flex flex-grow flex-col p-2.5 sm:p-4 md:p-7">
@@ -135,11 +154,15 @@ return(
         className="group flex cursor-pointer flex-col overflow-hidden rounded-[18px] border border-[#e2dfd7] bg-white shadow-[0_18px_42px_rgba(19,26,21,0.08)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_25px_60px_rgba(19,26,21,0.12)] sm:rounded-[22px]"
         onClick={() => openGallery(room2Images)}
       >
-        <div className="overflow-hidden">
+        <div className="relative overflow-hidden">
           <img
             src="/images/room2.jpg"
             className="h-32 w-full object-cover transition duration-500 group-hover:scale-105 sm:h-52 md:h-72"
           />
+          <div className="absolute bottom-2 right-2 flex items-center gap-1 rounded-full border border-white/50 bg-black/45 px-2 py-1 text-[9px] font-medium text-white backdrop-blur-sm sm:bottom-3 sm:right-3 sm:px-2.5 sm:text-[10px]">
+            <span>📷</span>
+            <span>{room2Images.length}</span>
+          </div>
         </div>
 
         <div className="flex flex-grow flex-col p-2.5 sm:p-4 md:p-7">
@@ -230,9 +253,6 @@ onClick={()=>setSliderIndex(i)}
 className="absolute right-3 top-3 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-black/40 text-xl text-white shadow-lg backdrop-blur-sm transition hover:bg-black/60 sm:right-4 sm:top-4"
 onClick={() => {
   setSliderIndex(null)
-  if (window.history.state && window.history.state.galleryOpen) {
-    window.history.pushState({ galleryOpen: true }, "", window.location.href)
-  }
 }}
 aria-label="Close gallery"
 >
